@@ -38,8 +38,15 @@ $conn = connection();
         $password = mysqli_real_escape_string($conn, $_POST['password']);
         $confirm = mysqli_real_escape_string($conn, $_POST['confirm']);
 
-        if($password == $confirm){
+     
+         $sql = "SELECT * FROM users WHERE username = '$username'";
+         $result_verify_user = mysqli_query($conn, $sql);
+         if(mysqli_num_rows($result_verify_user) > 0){
+            echo "User already exist Try different";
+         }else {
+           if($password == $confirm){
             $hash = password_hash($password, PASSWORD_DEFAULT);
+
             $sql = "INSERT INTO users (username , password) VALUES ('$username', '$hash')";
             if(mysqli_query($conn, $sql)){
                 echo "Successfully Inserted";
@@ -52,6 +59,8 @@ $conn = connection();
         }else {
             echo "Password mismatch";
         }
+         }
+      
     }else {
         echo "Theres an error Please try again Later";
     }

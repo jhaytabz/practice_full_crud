@@ -23,7 +23,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     $search = "";
     if(isset($_GET['submit'])){
      $search = mysqli_real_escape_string($conn, $_GET['search']);
-     $sql = "SELECT * FROM students WHERE gender LIKE '%$search%' OR section LIKE '%$search%'";
+     $sql = "SELECT * FROM students WHERE gender LIKE '%$search%' OR section LIKE '%$search%' OR age LIKE '%$search%'
+     OR lastname LIKE '%$search%' OR firstname LIKE '%$search%'";
      $result = mysqli_query($conn, $sql);
      $row = mysqli_fetch_assoc($result);
     }

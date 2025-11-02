@@ -72,6 +72,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $section = mysqli_real_escape_string($conn, $_POST['section']);
 
+    
+
     $sql = "INSERT INTO students (firstname, lastname, age, gender,section) 
     VALUES ('$firstname','$lastname','$age','$gender','$section')";
 

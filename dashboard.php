@@ -72,6 +72,7 @@ $row = mysqli_fetch_assoc($result);
                  <button type="submit" name="submit">Delete</button>
                  <input type="hidden" name="id" id="" value="<?php echo $row['id']; ?>">
                  </form>
+                        <a href="details.php">View</a>
                 </td>
                     
                     <?php } else {  ?>
