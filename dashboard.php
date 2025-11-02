@@ -4,6 +4,12 @@ include_once 'db.php';
 $conn = connection();
 
 
+if(!isset($_SESSION['datauser'])){
+    echo "Welcome Guest";
+}else {
+    echo "Welcome " . $_SESSION['datauser'];
+}
+
 
 
 
@@ -22,8 +28,10 @@ $row = mysqli_fetch_assoc($result);
     <link rel="stylesheet" href="style.css">
 </head>
 <body><br><br><br>
+
+   <?php if(isset($_SESSION['dataaccess']) && $_SESSION['dataaccess'] == 'admin') { ?>
     <a href="insert.php">Add Student</a> <br><br>
-    
+    <?php }  ?>
     <?php if(isset($_SESSION['datauser'])) {  ?>
         <a href="logout.php">Logout</a>
     <?php } else { ?>
@@ -37,9 +45,9 @@ $row = mysqli_fetch_assoc($result);
         <table>
             <thead>
               <tr>
-             <?php if(isset($_SESSION['access']) == 'admin') {  ?>
+       
                 <th>action</th>
-              <?php } ?>
+
 
                 <th>Firstname</th>
                 <th>Lastname</th>
@@ -52,7 +60,7 @@ $row = mysqli_fetch_assoc($result);
                 <?php do {  ?>
                 <tr>
 
-                 <?php if(isset($_SESSION['dataaccesss']) === 'admin'){ ?>
+                 <?php if(isset($_SESSION['dataaccess']) && $_SESSION['dataaccess'] == 'admin'){ ?>
                  <td>
                     <a href="edit.php?id=<?php echo $row['id']; ?>">Edit</a>
 
