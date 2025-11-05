@@ -6,6 +6,7 @@ $conn = connection();
 
 
 
+
 $sql = "SELECT * FROM students ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -22,6 +23,13 @@ $row = mysqli_fetch_assoc($result);
 </head>
 <body><br><br><br>
     <a href="insert.php">Add Student</a> <br><br>
+    
+    <?php if(isset($_SESSION['datauser'])) {  ?>
+        <a href="logout.php">Logout</a>
+    <?php } else { ?>
+     <a href="login.php">Login</a>
+     <?php  } ?>
+   
     <center>
     
         <h1>Student Enrollment System</h1>
@@ -29,7 +37,10 @@ $row = mysqli_fetch_assoc($result);
         <table>
             <thead>
               <tr>
+             <?php if(isset($_SESSION['access']) == 'admin') {  ?>
                 <th>action</th>
+              <?php } ?>
+
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Age</th>
@@ -40,6 +51,8 @@ $row = mysqli_fetch_assoc($result);
             <tbody>
                 <?php do {  ?>
                 <tr>
+
+                 <?php if(isset($_SESSION['dataaccesss']) === 'admin'){ ?>
                  <td>
                     <a href="edit.php?id=<?php echo $row['id']; ?>">Edit</a>
 
@@ -48,6 +61,12 @@ $row = mysqli_fetch_assoc($result);
                  <input type="hidden" name="id" id="" value="<?php echo $row['id']; ?>">
                  </form>
                 </td>
+                    
+                    <?php } else {  ?>
+                        <td>
+                            <a href="details.php">View</a>
+                        </td>
+                        <?php } ?>
                  <td> <?php echo $row['firstname']; ?>  </td>
                  <td> <?php echo $row['lastname']; ?>  </td>
                  <td> <?php echo $row['age']; ?>  </td>

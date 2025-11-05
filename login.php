@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'db.php';
 $conn = connection();
 
@@ -12,6 +13,7 @@ $conn = connection();
 </head>
 <body>
     <br><br><br>
+    <a href="dashboard.php">Dashboard</a><br><br>
       <center>
   Login Form: <br><br>
   <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -44,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
             if(password_verify($password, $user['password'])){
                 $_SESSION['datauser'] = $user['username'];
-                $_SESSION['datauser'] = $user['access'];
+                $_SESSION['dataaccess'] = $user['access'];
                 echo "Successfully Login";
                 header("Location: dashboard.php");
                 exit();
