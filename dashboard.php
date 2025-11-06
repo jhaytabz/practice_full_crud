@@ -10,12 +10,11 @@ if(!isset($_SESSION['datauser'])){
     echo "Welcome Admin " . $_SESSION['datauser'];
 }
 
-
-
-
 $sql = "SELECT * FROM students ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+
+
 
 
 ?>
@@ -42,7 +41,7 @@ $row = mysqli_fetch_assoc($result);
       <br><br>
       Search:
       <form action="result.php" method="get">
-      <input type="search" name="search" placeholder="Search....."> <br><br>
+      <input type="text" name="search" placeholder="Search....."> <br><br>
       <button type="submit" name="submit">Search</button>
       </form>
         <h1>Student Enrollment System</h1>
@@ -93,3 +92,10 @@ $row = mysqli_fetch_assoc($result);
     </center>
 </body>
 </html>
+
+<?php
+
+
+
+
+?>

@@ -11,31 +11,25 @@ if(!isset($_SESSION['datauser'])){
 }
 
 
-
-
 $sql = "SELECT * FROM students ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 
-if(isset($_GET['search'])){
-    
-$search = "";
-    $search = mysqli_real_escape_string($conn, $_GET['search']);
-    $sql = "SELECT * FROM students WHERE gender = '%$search%' 
-    OR section = '%$search%'";
-    $result = mysqli_query($conn, $sql);
 
-    if(mysqli_num_rows($result) > 0) {
-       while($datarow = mysqli_fetch_assoc($result)){
-        echo $datarow['gender'];
-        echo $datarow['section'];
+
+
+if($_SERVER['REQUEST_METHOD'] == "GET"){
+    $search = "";
+    if(isset($_GET['submit'])){
+     $search = mysqli_real_escape_string($conn, $_GET['search']);
+     $sql = "SELECT * FROM students WHERE gender LIKE '%$search%' OR section LIKE '%$search%'";
+     $result = mysqli_query($conn, $sql);
+     $row = mysqli_fetch_assoc($result);
     }
-    }else{
-        echo "no result found";
-    }
-  
 }
+
+
 
 
 ?>
@@ -62,7 +56,7 @@ $search = "";
       <br><br>
       Search:
       <form action="result.php" method="get">
-      <input type="text" name="search" placeholder="Search....."> <br><br>
+      <input type="search" name="search" placeholder="Search....."> <br><br>
       <button type="submit" name="submit">Search</button>
       </form>
         <h1>Student Enrollment System</h1>
@@ -82,8 +76,9 @@ $search = "";
               </tr>
             </thead>
             <tbody>
-              
-                 
+
+            <?php if(mysqli_num_rows($result) > 0) {  ?>
+                <?php do {  ?>
                 <tr>
 
                  <?php if(isset($_SESSION['dataaccess']) && $_SESSION['dataaccess'] == 'admin'){ ?>
@@ -101,17 +96,25 @@ $search = "";
                             <a href="details.php">View</a>
                         </td>
                         <?php } ?>
-                 <td> <?php  ?>  </td>
-                 <td> <?php  ?>  </td>
-                 <td> <?php  ?>  </td>
-                 <td> <?php ?>  </td>
-                 <td> <?php  ?>  </td>
+                 <td> <?php echo $row['firstname']; ?>  </td>
+                 <td> <?php echo $row['lastname']; ?>  </td>
+                 <td> <?php echo $row['age']; ?>  </td>
+                 <td> <?php echo $row['gender']; ?>  </td>
+                 <td> <?php echo $row['section']; ?>  </td>
                  </tr>
-         
-              
+               <?php }while ($row = mysqli_fetch_assoc($result)) ; ?>  
+
+               <?php } else { 
+                    echo "No result found";
+               } ?>
             </tbody>
-        </table> <br><br>
+        </table>
         
     </center>
 </body>
 </html>
+<?php
+
+
+
+?>
