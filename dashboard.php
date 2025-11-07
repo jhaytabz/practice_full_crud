@@ -24,7 +24,7 @@ $row = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This is the dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body><br><br><br>
 
@@ -42,7 +42,7 @@ $row = mysqli_fetch_assoc($result);
       Search:
       <form action="result.php" method="get">
       <input type="text" name="search" placeholder="Search....."> <br><br>
-      <button type="submit" name="submit">Search</button>
+      <button class="btn" type="submit" name="submit">Search</button>
       </form>
         <h1>Student Enrollment System</h1>
 <br><br>
